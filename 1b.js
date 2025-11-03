@@ -21,7 +21,21 @@
  *   輸出: ["mouse"]
  */
 function getLowStock(products) {
- 
+   const lowStockNames = [];
+
+  for (const product of products) {
+    // 檢查這件商品的庫存是否小於 10
+    if (product.stock < 10) {
+      // 庫存少？把商品名稱加入陣列
+      lowStockNames.push(product.name);
+    }
+
+  // 印出結果，符合題目格式
+  console.log("庫存少於 10 的項目：", lowStockNames);
+  
+  // 回傳結果陣列，供其他程式使用
+  return lowStockNames;
+  }
 }
 
 
@@ -42,8 +56,61 @@ function getLowStock(products) {
  *   updates = { mouse: 15 }
  *   結果: [{ name: "mouse", stock: 15 }]
  */
+
+// 定義函式 updateStock
 function updateStock(products, updates) {
+
+  // 1. 建立一個新的空陣列
+  const updatedProducts = [];
+
+  // 2. 使用 for...of 迴圈遍歷 products 陣列
+  for (const product of products) {
+    
+    // 3. 取得當前商品的名稱
+    const productName = product.name;
+
+    // 4. 從 updates 物件中查找新庫存
+    const newStock = updates[productName];
+
+    
+    // 5. 判斷是否需要更新庫存
+    if (newStock !== undefined) {
+      
+      // 5a. 如果需要更新：手動創建一個包含新庫存的「新物件」
+      const newProduct = {
+        name: productName,   
+        stock: newStock      
+      };
+      
+      // 將更新後的物件加入結果陣列
+      updatedProducts.push(newProduct);
+      
+    } else {
+      
+      // 5b. 如果不需要更新：複製原始物件的屬性到一個新物件中
+      const newProduct = {
+        name: product.name,
+        stock: product.stock 
+      };
+      
+      // 將未更新的物件副本加入結果陣列
+      updatedProducts.push(newProduct);
+    }
+  }
   
+  // 6. 遍歷更新後的陣列，並印出結果
+  // ********** 核心修改：將箭頭函式替換成傳統的匿名函式 **********
+  // 傳統函式寫法：function (參數) { 程式碼區塊 }
+  updatedProducts.forEach(function (product) {
+      // 在此函式內部，product 依然代表陣列中的每個元素
+      
+      // 使用「+」運算子來連接字串和變數，避免使用模板字串 (${})
+      console.log(product.name + " 的庫存： " + product.stock);
+  });
+  // *********************************************************
+  
+  // 7. 函式回傳更新後的陣列
+  return updatedProducts;
 }
 
 
@@ -209,3 +276,8 @@ if (typeof module !== 'undefined' && module.exports) {
    - 優點：程式碼簡潔、易讀
 
 */
+
+// 呼叫函式
+//呼叫盡量放在最後面 不然擔心程式碼運作會有問題(先定義後呼叫)
+getLowStock(products);
+updateStock(products, updates);
