@@ -189,14 +189,19 @@ if (req.url.endsWith('.css') || req.url.endsWith('.js') || req.url.endsWith('.pn
         // 靜態文件不存在 → 顯示 404 錯誤頁面
         // ------------------------------------------
 
-        // 當靜態資源載入失敗時（例如：請求不存在的文件或網址）
-        // 不直接回傳錯誤訊息，而是顯示友善的 404 錯誤頁面（index3.ejs）
-
-        // 設定 HTTP 狀態碼 404（找不到資源）
-        res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
-
-        // 向客戶端發送 404 錯誤訊息
-        res.end('404 - 找不到文件：');
+        fs.readFile('./index3.ejs', 'utf8', (ejsErr, template) => {
+          if (ejsErr) {  // 如果 404 檔也讀不到
+            res.writeHead(500, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.end('伺服器錯誤：找不到 404 頁面');
+            return;
+          }
+          const html = ejs.render(template);
+          res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+          res.end(html);
+          // 當靜態資源載入失敗時（例如：請求不存在的文件或網址）
+          // 不直接回傳錯誤訊息，而是顯示友善的 404 錯誤頁面（index3.ejs）
+          // 設定 HTTP 狀態碼 404（找不到資源）
+          });
 
       } else {
         // ------------------------------------------
