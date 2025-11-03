@@ -1,8 +1,8 @@
 # 第2次隨堂題目-隨堂-QZ2
 >
->學號：1234567   (學號和姓名都要寫)
+>學號：112111106
 ><br />
->姓名：王小明
+>姓名：楊于瑩
 >
 
 本份文件包含以下主題：(至少需下面兩項，若是有多者可以自行新增)
@@ -70,13 +70,60 @@ Ans:
 
 2. a.
 
-Ans:
+Ans:***程式碼***<br>
+```js
+  // 請寫 switch完成各個收到不同的請求以及輸出不同的回應字串 (使用 switch)
+  switch (url) {
+    case '/':
+      answer = 'index.html輸出的部分'; 
+      break;
+    case '/calculator':
+      answer = 'index2.html輸出的部分';
+      break;
+    default:
+      answer = 'error.html輸出的部分';  
+  }
+```
+
+***輸出結果***<br>
+**輸入【/】**<br>
+![alt text](image-2.png)<br>
+**輸入【/calculator】**<br>
+![alt text](image-1.png)<br>
+**輸入其他**<br>
+![alt text](image-3.png)<br>
+解釋:通過switch方法進行路由，判定如果請求中的url為【/】answer(也就是輸出畫面字串)為index.html輸出的部分，同理如果請求為【/calculator】，answer就為index2.html輸出的部分，都不以上兩種的話，則輸出error.html輸出的部分。
+
 
 <!--  請撰寫時，第一句話再寫一次  -->
 
 2. b.
 
-Ans:
+Ans:***程式碼***
+```js
+  // Switch根據不同路由要寫的部分
+  switch (req.url) {
+    case '/':
+      filePath = '/index.ejs';
+      break;
+    case '/calculator':
+      filePath = '/index2.ejs';
+      break;
+    default:
+      break;
+  }
+
+if (req.url.endsWith('.css') || req.url.endsWith('.js') || req.url.endsWith('.png')) {
+  fileOtherFile = req.url;             // 靜態資源路徑
+}
+```
+***輸出畫面結果***
+**輸入【/】**<br>
+![alt text](<螢幕擷取畫面 2025-11-03 144231.png>)
+**輸入【/calculator】**<br>
+![alt text](image.png)
+
+
 
 <!--  請撰寫時，第一句話再寫一次  -->
 
